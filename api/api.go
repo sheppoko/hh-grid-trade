@@ -21,7 +21,7 @@ const (
 	PrivateAPIEndpoint    = "https://api.bitbank.cc"
 	CandleAPIEndpointBase = "https://public.bitbank.cc/" + config.CoinName + "_jpy/candlestick/1min/"
 	BoardAPIEndpoint      = "https://public.bitbank.cc/" + config.CoinName + "_jpy/depth"
-	APIKey                = "359bb6a5-b8f2-4ad8-9371-829be9bc019d"
+	APIKey                = "fa5a78ea-41b2-42a9-9be2-8ceace32e72c"
 	AssetsPath            = "/v1/user/assets"
 	ActiveOrdersPath      = "/v1/user/spot/active_orders"
 	TradeHistoryPath      = "/v1/user/spot/trade_history"
@@ -462,6 +462,7 @@ func signature(method string, nonce string, path string, queryStringOrBody strin
 		}
 		json.Unmarshal(raw, &apiSecret)
 	}
+	fmt.Println(apiSecret.Value)
 	rawString := ""
 	if method == "GET" {
 		rawString = nonce + path
@@ -471,6 +472,7 @@ func signature(method string, nonce string, path string, queryStringOrBody strin
 	} else {
 		rawString = nonce + queryStringOrBody
 	}
+	fmt.Println(rawString)
 	mac := hmac.New(sha256.New, []byte(apiSecret.Value))
 	mac.Write([]byte(rawString))
 	return hex.EncodeToString(mac.Sum(nil))

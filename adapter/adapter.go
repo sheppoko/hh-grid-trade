@@ -51,9 +51,11 @@ func StartStrategy() {
 			if errM != nil {
 				fmt.Println(errM)
 			} else {
+				fmt.Println(p)
 				api.PostSlack(util.FloatToString(p) + "円")
 			}
 		}
+		return
 
 		_, err := SellCoinIfNeedAndUpdateUnsold()
 		if err != nil {
@@ -84,7 +86,7 @@ func initCache() {
 func SetRangeFromCandle() error {
 
 	baseDateDiff := -1
-	dateNum := 30
+	dateNum := 3
 	candle, _ := api.GetCandle(time.Now().AddDate(0, 0, baseDateDiff))
 	for i := 1; i < dateNum; i++ {
 		candlePart, e := api.GetCandle(time.Now().AddDate(0, 0, baseDateDiff-1-i))
