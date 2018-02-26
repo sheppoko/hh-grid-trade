@@ -476,7 +476,6 @@ func signature(method string, nonce string, path string, queryStringOrBody strin
 		}
 		json.Unmarshal(raw, &apiSecret)
 	}
-	fmt.Println(apiSecret.Value)
 	rawString := ""
 	if method == "GET" {
 		rawString = nonce + path
@@ -486,7 +485,6 @@ func signature(method string, nonce string, path string, queryStringOrBody strin
 	} else {
 		rawString = nonce + queryStringOrBody
 	}
-	fmt.Println(rawString)
 	mac := hmac.New(sha256.New, []byte(apiSecret.Value))
 	mac.Write([]byte(rawString))
 	return hex.EncodeToString(mac.Sum(nil))
