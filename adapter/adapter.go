@@ -299,7 +299,7 @@ func PostInfoToSlack() error {
 	}
 	boardPrice, _ := util.StringToFloat(board.Data.Bids[0][0])
 	estimate := coin*boardPrice + jpy
-	api.PostSlack("現在資産:" + util.FloatToString(estimate) + ",全利益確定時:" + util.FloatToString(jpyEstimate))
+	api.PostSlack("現在資産:" + util.FloatToString(estimate) + ",全利益確定時:" + util.FloatToString(jpyEstimate+jpy))
 	return nil
 }
 
